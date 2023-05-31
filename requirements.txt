@@ -1,2 +1,2 @@
 Flask==2.0.2
-gevent==21.8.0
+gevent==23.0.1
