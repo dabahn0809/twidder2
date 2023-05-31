@@ -1,11 +1,11 @@
-import gevent
+
 from database_helper import create_tables
 import random
 import database_helper
 from flask import Flask, jsonify, request
 from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
-from geventwebsocket.handler import WebSocketHandler
+from geventwebsocket.handler import WebSocketHandler, WebSocketError
 
 app = Flask(__name__)
 
@@ -297,6 +297,3 @@ def websocket():
 
 
 
-if __name__ == "__main__":
-    http_server = WSGIServer(("0.0.0.0", 5000), app, handler_class=WebSocketHandler)
-    http_server.serve_forever()
