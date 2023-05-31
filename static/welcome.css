@@ -1,0 +1,238 @@
+body{
+    background-color:navy;
+}
+
+.box{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    width: 600px;
+    height: 400px;
+    background-color: navy;  
+}
+
+#logoandslogan{
+    border-right: 10px;
+    float: left;
+    border: 1px black;
+    width: 340px;
+    height: 400px;
+    background-image: url("Twidder.png");
+}
+
+#login{
+    border-bottom: 10px;
+    float: right;
+    border: 1px black;
+    width: 250px;
+    height: 100px;
+    background-color: white;
+}
+
+#loginspace{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#loginemail{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#loginemaillabel{
+    float: left;
+    height: 25px;
+}
+
+#loginemailfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#loginpassword{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#loginpasswordlabel{
+    float: left;
+    height: 25px;
+}
+
+#loginpasswordfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#loginsubmit{
+    float: right;
+    height: 25px;
+}
+
+#space{
+    float: right;
+    width: 250px;
+    height: 10px;
+}
+
+#signup{
+    float: right;
+    border: 1px black;
+    width: 250px;
+    height: 290px;
+    background-color: white;
+}
+
+#signuphere{
+    text-align: center;
+    line-height: 65px;
+    height: 65px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+#signupfirstname{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupfirstnamelabel{
+    float: left;
+    height: 25px;
+}
+
+#signupfirstnamefield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupfamilyname{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupfamilynamelabel{
+    float: left;
+    height: 25px;
+}
+
+#signupfamilynamefield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupgender{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupgenderlabel{
+    float: left;
+    height: 25px;
+}
+
+#signupgenderfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupcity{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupcitylabel{
+    float: left;
+    height: 25px;
+}
+
+#signupcityfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupcountry{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupcountrylabel{
+    float: left;
+    height: 25px;
+}
+
+#signupcountryfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupemail{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupemaillabel{
+    float: left;
+    height: 25px;
+}
+
+#signupemailfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signuppassword{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signuppasswordlabel{
+    float: left;
+    height: 25px;
+}
+
+#signuppasswordfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signuprepeatpsw{
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signuprepeatpswlabel{
+    float: left;
+    height: 25px;
+}
+
+#signuprepeatpswfield{
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupsubmit{
+    float: right;
+    height: 25px;
+}

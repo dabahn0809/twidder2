@@ -1,0 +1,219 @@
+<html>
+
+<head>
+    <link href="/static/client.css" type="text/css" rel="stylesheet">
+    <script src="/static/client.js" type="text/javascript"></script>
+    <script src="/static/serverstub.js" type="text/javascript"></script>
+    <script type="text/view" id="welcomeview">
+            <div class="box">
+                <div id="logoandslogan"></div>
+            <form onsubmit="signIn(); return false">
+                <div id="login">
+                    <div id="loginspace"></div>
+                    <div id="loginemail">
+                        <div id="loginemaillabel">Email</div>
+                        <div><input id="loginemailfield" type="email" required></div>
+                    </div>
+                    <div id="loginpassword">
+                        <div id="loginpasswordlabel">Password</div>
+                        <div><input id="loginpasswordfield" type="password" minlength="6" required></div>
+                    </div>
+                    <div><input id="loginsubmit" type="submit"></div>
+                </div>
+            </form>
+                <div id="space"></div>
+            <form onsubmit= "signUp(); return false">
+                <div id="signup">
+                    <div id="signuphere">Sign up here</div>
+                    <div id="signupfirstname">
+                        <div id="signupfirstnamelabel">First Name</div>
+                        <div><input id="signupfirstnamefield" type="text" required></div>
+                    </div>
+                    <div id="signupfamilyname">
+                        <div id="signupfamilynamelabel">Family Name</div>
+                        <div><input id="signupfamilynamefield" type="text" required></div>
+                    </div>
+                    <div id="signupgender">
+                        <div id="signupgenderlabel">Gender</div>
+                        <div><input id="signupgenderfield" type="text" required></div>
+                    </div>
+                    <div id="signupcity">
+                        <div id="signupcitylabel">City</div>
+                        <div><input id="signupcityfield" type="text" required></div>
+                    </div>
+                    <div id="signupcountry">
+                        <div id="signupcountrylabel">Country</div>
+                        <div><input id="signupcountryfield" type="text" required></div>
+                    </div>
+                    <div id="signupemail">
+                        <div id="signupemaillabel">Email</div>
+                        <div><input id="signupemailfield" type="email" required></div>
+                    </div>
+                    <div id="signuppassword">
+                        <div id="signuppasswordlabel">Password</div>
+                        <div><input id="signuppasswordfield" type="password" minlength="6" required></div>
+                    </div>
+                    <div id="signuprepeatpsw">
+                        <div id="signuprepeatpswlabel">Repeat PSW</div>
+                        <div><input id="signuprepeatpswfield" type="password" minlength="6" required></div>
+                    </div>
+                    <div id="differentpw"></div>
+                    <div><input id="signupsubmit" type="submit" ></div>
+                </div>
+            </form>
+            </div>
+        </script>
+    <script type="text/view" id="profileview">
+            <div class="boxhome">
+                <div id="homeviewup">
+                    <div id="homeviewlabel">Home</div>
+                </div>
+                <div id="homeviewmiddle">
+                    <div id="homeviewdata">
+                        <div id="homeviewdatalabel">Personal Information</div>
+                        <div id="homeviewdatafirstname">
+                            <div id="homeviewdatafirstnamelabel">First Name</div>
+                            <div id="homeviewdatafirstnamefield"></div>
+                        </div>
+                        <div id="homeviewdatafamilyname">
+                            <div id="homeviewdatafamilynamelabel">Family Name</div>
+                            <div id="homeviewdatafamilynamefield">Test</div>
+                        </div>
+                        <div id="homeviewdatagender">
+                            <div id="homeviewdatagenderlabel">Gender</div>
+                            <div id="homeviewdatagenderfield">Test</div>
+                        </div>
+                        <div id="homeviewdatacity">
+                            <div id="homeviewdatacitylabel">City</div>
+                            <div id="homeviewdatacityfield">Test</div>
+                        </div>
+                        <div id="homeviewdatacountry">
+                            <div id="homeviewdatacountrylabel">Country</div>
+                            <div id="homeviewdatacountryfield">Test</div>
+                        </div>
+                        <div id="homeviewdataemail">
+                            <div id="homeviewdataemaillabel">Email</div>
+                            <div id="homeviewdataemailfield">Test</div>
+                        </div>
+                    </div>
+                    <div id="homeviewownwall">
+                        <div id="homeviewownwalllabel">My Wall</div>
+                        <div id="homeviewownwallshow" draggable="true" ondragstart="drag(event)"></div>
+                        <div><input id="homeviewownwallpost" type="text"></div>
+                        <button id="homeviewownwallbutton" onclick="callpostOnWall()">Post</button>
+                    </div>
+                    <div id="homeviewallwall" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div id="homeviewreload">
+                        <div id="homeviewreloadlabel">Reload</div>
+                        <button id="homeviewreloadbutton" onclick="callreloadownwall()">Reload Wall</button>
+                    </div>
+                </div>
+                <div id="homeviewdown">
+                    <button id="homehomebutton">Home</button>
+                    <div id="homeviewspace"></div>
+                    <button id="homebrowsebutton" onclick="homeshowBrowseView()">Browse</button>
+                    <div id="homeviewspace"></div>
+                    <button id="homeaccountbutton" onclick="homeshowAccountView()">Account</button>
+                </div>
+            </div>
+            <div class="boxbrowse" style="display: none;">
+                <div id="browseviewup">
+                    <div id="browseviewlabel">Browse</div>
+                </div>
+                <div id="browseviewmiddle">
+                    <div id="browseviewdata">
+                        <div id="browseviewdatalabel">User Information</div>
+                        <div id="browseviewdatafirstname">
+                            <div id="browseviewdatafirstnamelabel">First Name</div>
+                            <div id="browseviewdatafirstnamefield"></div>
+                        </div>
+                        <div id="browseviewdatafamilyname">
+                            <div id="browseviewdatafamilynamelabel">Family Name</div>
+                            <div id="browseviewdatafamilynamefield"></div>
+                        </div>
+                        <div id="browseviewdatagender">
+                            <div id="browseviewdatagenderlabel">Gender</div>
+                            <div id="browseviewdatagenderfield"></div>
+                        </div>
+                        <div id="browseviewdatacity">
+                            <div id="browseviewdatacitylabel">City</div>
+                            <div id="browseviewdatacityfield"></div>
+                        </div>
+                        <div id="browseviewdatacountry">
+                            <div id="browseviewdatacountrylabel">Country</div>
+                            <div id="browseviewdatacountryfield"></div>
+                        </div>
+                        <div id="browseviewdataemail">
+                            <div id="browseviewdataemaillabel">Email</div>
+                            <div id="browseviewdataemailfield"></div>
+                        </div>
+                    </div>
+                    <div id="browseviewownwall">
+                        <div id="browseviewownwalllabel">Wall User</div>
+                        <div id="browseviewownwallshow" draggable="true" ondragstart="drag(event)"></div>
+                        <div><input id="browseviewownwallpost" type="text"></div>
+                        <button id="browseviewownwallbutton" onclick="callpostOnSelectedWall()">Post</button>
+                    </div>
+                    <div id="browseviewallwall" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div id="browseviewreload">
+                        <div id="browseviewreloadlabel">Reload</div>
+                        <button id="browseviewreloadbutton" onclick="callreloadselectedwall()">Reload Wall</button>
+                        <div id="browseviewreloadsearchlabel">Search User</div>
+                        <div><input id="browseviewreloadsearchfield" type="text"></div>
+                        <button id="browseviewreloadsearchbutton" onclick="callbrowsePersonalInformation()">Search</button>
+                    </div>
+                </div>
+                <div id="browseviewdown"> 
+                    <button id="browsehomebutton" onclick="browseshowHomeView()">Home</button>
+                    <div id="browseviewspace"></div>
+                    <button id="browsebrowsebutton">Browse</button>
+                    <div id="browseviewspace"></div>
+                    <button id="browseaccountbutton" onclick="browseshowAccountView()">Account</button>
+                </div>
+            </div>
+            <div class="boxaccount" style="display: none;">
+                <div id="accountviewup">
+                    <div id="accountviewlabel">Account</div>
+                </div>
+                <div id="accountviewmiddle">
+                    <div id="accountviewresetpw">
+                        <div id="accountviewresetpwlabel">Reset Password</div>
+                        <div id="accountviewoldpw">
+                            <div id="accountviewoldpwlabel">Old Password</div>
+                            <div><input id="accountviewoldpwfield" type="text" minlength="6" required></div>
+                        </div>
+                        <div id="accountviewnewpw">
+                            <div id="accountviewnewpwlabel">New Password</div>
+                            <div><input id="accountviewnewpwfield" type="text" minlength ="6" required></div>
+                        </div>
+                        <div id="accountviewreppw">
+                            <div id="accountviewreppwlabel">Repeat Password</div>
+                            <div><input id="accountviewreppwfield" type="text" minlength="6" required></div>
+                        </div>
+                        <div id="accountviewsubmit">
+                            <button id="accountviewsubmitbutton" onclick="callcheckPasswordsMatch()">Submit</button>
+                            <div id="accountviewsubmiterror"></div>
+                        </div>
+                    </div>
+                    <div id="accountviewsignout">
+                        <div id="accountviewsignoutlabel">Sign Out</div>
+                        <button id="accountviewsignoutbutton" onclick="accountSignout()">Sign Out</button>
+                    </div>
+                </div>
+                <div id="accountviewdown">
+                    <button id="accounthomebutton" onclick="accountshowHomeView()">Home</button>
+                    <div id="accountviewspace"></div>
+                    <button id="accountbrowsebutton" onclick="accountshowBrowseView()">Browse</button>
+                    <div id="accountviewspace"></div>
+                    <button id="accountaccountbutton">Account</button>
+                </div>
+                
+            </div>
+        </script>
+</head>
+
+<body>
+    <div id="body"></div>
+</body>
+
+</html>

@@ -1,0 +1,1085 @@
+body {
+    background-color: navy;
+}
+
+.box {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    width: 600px;
+    height: 400px;
+    background-color: navy;
+}
+
+#logoandslogan {
+    border-right: 10px;
+    float: left;
+    border: 1px black;
+    width: 340px;
+    height: 400px;
+    background-image: url("Twidder.png");
+}
+
+#login {
+    border-bottom: 10px;
+    float: right;
+    border: 1px black;
+    width: 250px;
+    height: 100px;
+    background-color: white;
+}
+
+#loginspace {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#loginemail {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#loginemaillabel {
+    float: left;
+    height: 25px;
+}
+
+#loginemailfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#loginpassword {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#loginpasswordlabel {
+    float: left;
+    height: 25px;
+}
+
+#loginpasswordfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#loginsubmit {
+    float: right;
+    height: 25px;
+}
+
+#space {
+    float: right;
+    width: 250px;
+    height: 10px;
+}
+
+#signup {
+    float: right;
+    border: 1px black;
+    width: 250px;
+    height: 290px;
+    background-color: white;
+}
+
+#signuphere {
+    text-align: center;
+    line-height: 65px;
+    height: 65px;
+    font-weight: bold;
+}
+
+#signupfirstname {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupfirstnamelabel {
+    float: left;
+    height: 25px;
+}
+
+#signupfirstnamefield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupfamilyname {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupfamilynamelabel {
+    float: left;
+    height: 25px;
+}
+
+#signupfamilynamefield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupgender {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupgenderlabel {
+    float: left;
+    height: 25px;
+}
+
+#signupgenderfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupcity {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupcitylabel {
+    float: left;
+    height: 25px;
+}
+
+#signupcityfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupcountry {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupcountrylabel {
+    float: left;
+    height: 25px;
+}
+
+#signupcountryfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signupemail {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signupemaillabel {
+    float: left;
+    height: 25px;
+}
+
+#signupemailfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signuppassword {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signuppasswordlabel {
+    float: left;
+    height: 25px;
+}
+
+#signuppasswordfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#signuprepeatpsw {
+    float: right;
+    width: 250px;
+    height: 25px;
+}
+
+#signuprepeatpswlabel {
+    float: left;
+    height: 25px;
+}
+
+#signuprepeatpswfield {
+    float: right;
+    width: 150px;
+    height: 25px;
+}
+
+#differentpw {
+    float: left;
+    width: 100px;
+}
+
+#signupsubmit {
+    float: right;
+    height: 25px;
+}
+
+.boxhome {
+    display: grid;
+    grid-template-rows: 100px 400px 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    width: 1000px;
+    height: 600px;
+    background-color: antiquewhite;
+}
+
+#homeviewup {
+    background-color: lightsteelblue;
+    width: 1000px;
+    height: 100px;
+}
+
+#homeviewmiddle {
+    width: 1000px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: 250px 250px 250px 250px;
+}
+
+#homeviewdown {
+    background-color: lightsteelblue;
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px;
+    width: 1000px;
+    height: 100px;
+}
+
+#homeviewlabel {
+    text-align: center;
+    line-height: 100px;
+    display: grid;
+    width: 1000px;
+    font-size: 50px;
+    height: 100px;
+}
+
+#homeviewdata {
+    display: grid;
+    grid-template-rows: 60px 60px 60px 60px 60px 60px;
+    width: 250px;
+    height: 400px;
+}
+
+#homeviewdatalabel {
+    text-align: center;
+    display: grid;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#homeviewdatafirstname {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#homeviewdatafirstnamelabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#homeviewdatafirstnamefield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#homeviewdatafamilyname {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#homeviewdatafamilynamelabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#homeviewdatafamilynamefield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#homeviewdatagender {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#homeviewdatagenderlabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#homeviewdatagenderfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#homeviewdatacity {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#homeviewdatacitylabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#homeviewdatacityfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#homeviewdatacountry {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#homeviewdatacountrylabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#homeviewdatacountryfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#homeviewdataemail {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#homeviewdataemaillabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#homeviewdataemailfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#homeviewownwall {
+    display: grid;
+    grid-template-rows: 50px 200px 100px 50px;
+    width: 250px;
+    height: 400px;
+    place-items: center;
+}
+
+#homeviewownwalllabel {
+    display: grid;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+
+}
+
+#homeviewownwallshow {
+    background-color: mistyrose;
+    width: 250px;
+    height: 200px;
+}
+
+#homeviewownwallpost {
+    width: 250px;
+    height: 100px;
+}
+
+#homeviewownwallbutton {
+    text-align: center;
+    width: 180px;
+    height: 40px;
+    background-color: gray;
+}
+
+#homeviewownwallbutton:hover {
+    background-color: aliceblue;
+}
+
+
+#homeviewallwall {
+    background-color: mistyrose;
+    display: grid;
+    width: 250px;
+    height: 400px;
+}
+
+#homeviewreload {
+    display: grid;
+    grid-template-rows: 50px 100px;
+    width: 250px;
+    height: 400px;
+    place-items: center;
+}
+
+#homeviewreloadlabel {
+    display: grid;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#homeviewreloadbutton {
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: gray;
+}
+
+#homeviewreloadbutton:hover {
+    background-color: aliceblue;
+}
+
+#homeviewspace {
+    display: grid;
+    width: 200px;
+    height: 100px;
+}
+
+#homehomebutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    color: white;
+    width: 200px;
+    height: 100px;
+    background-color: darkcyan;
+    font-size: 20px;
+}
+
+#homehomebutton:hover {
+    background-color: bisque;
+}
+
+#homebrowsebutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: darkmagenta;
+    font-size: 20px;
+}
+
+#homebrowsebutton:hover {
+    background-color: bisque;
+}
+
+#homeaccountbutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: dodgerblue;
+    font-size: 20px;
+}
+
+#homeaccountbutton:hover {
+    background-color: bisque;
+}
+
+.boxbrowse {
+    display: grid;
+    grid-template-rows: 100px 400px 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    width: 1000px;
+    height: 600px;
+    background-color: antiquewhite;
+}
+
+#browseviewup {
+    background-color: lightsteelblue;
+    width: 1000px;
+    height: 100px;
+}
+
+#browseviewmiddle {
+    display: grid;
+    grid-template-columns: 250px 250px 250px 250px;
+    width: 1000px;
+    height: 400px;
+}
+
+#browseviewdown {
+    background-color: lightsteelblue;
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px;
+    width: 1000px;
+    height: 100px;
+}
+
+#browseviewlabel {
+    text-align: center;
+    line-height: 100px;
+    display: grid;
+    width: 1000px;
+    font-size: 50px;
+}
+
+#browseviewdata {
+    display: grid;
+    grid-template-rows: 60px 60px 60px 60px 60px 60px;
+    width: 250px;
+    height: 400px;
+}
+
+#browseviewdatalabel {
+    text-align: center;
+    display: grid;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#browseviewdatafirstname {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#browseviewdatafirstnamelabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#browseviewdatafirstnamefield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#browseviewdatafamilyname {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#browseviewdatafamilynamelabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#browseviewdatafamilynamefield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#browseviewdatagender {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#browseviewdatagenderlabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#browseviewdatagenderfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#browseviewdatacity {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#browseviewdatacitylabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#browseviewdatacityfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#browseviewdatacountry {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#browseviewdatacountrylabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#browseviewdatacountryfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#browseviewdataemail {
+    display: grid;
+    grid-template-columns: 100px 150px;
+    place-items: center;
+    width: 250px;
+    height: 60px;
+}
+
+#browseviewdataemaillabel {
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#browseviewdataemailfield {
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+#browseviewownwall {
+    display: grid;
+    grid-template-rows: 50px 200px 100px 50px;
+    width: 250px;
+    height: 400px;
+    place-items: center;
+}
+
+#browseviewownwalllabel {
+    display: grid;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+
+}
+
+#browseviewownwallshow {
+    background-color: mistyrose;
+    width: 250px;
+    height: 200px;
+}
+
+#browseviewownwallpost {
+    width: 250px;
+    height: 100px;
+}
+
+#browseviewownwallbutton {
+    text-align: center;
+    width: 180px;
+    height: 40px;
+    background-color: gray;
+}
+
+#browseviewownwallbutton:hover {
+    background-color: aliceblue;
+}
+
+
+#browseviewallwall {
+    background-color: mistyrose;
+    display: grid;
+    width: 250px;
+    height: 400px;
+}
+
+#browseviewreload {
+    display: grid;
+    grid-template-rows: 50px 100px 50px 100px 100px;
+    width: 250px;
+    height: 400px;
+    place-items: center;
+}
+
+#browseviewreloadlabel {
+    display: grid;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#browseviewreloadbutton {
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: gray;
+}
+
+#browseviewreloadbutton:hover {
+    background-color: aliceblue;
+}
+
+
+#browseviewreloadsearchlabel {
+    line-height: 50px;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+}
+
+#browseviewreloadsearchfield {
+    text-align: center;
+    width: 250px;
+    height: 50px;
+}
+
+#browseviewreloadsearchbutton {
+    text-align: center;
+    width: 200px;
+    height: 60px;
+    background-color: gray;
+}
+
+#browseviewreloadsearchbutton:hover {
+    background-color: aliceblue;
+}
+
+#browseviewspace {
+    display: grid;
+    width: 200px;
+    height: 100px;
+}
+
+#browsehomebutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: darkcyan;
+    font-size: 20px;
+}
+
+#browsehomebutton:hover {
+    background-color: bisque;
+}
+
+#browsebrowsebutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    color: white;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: darkmagenta;
+    font-size: 20px;
+}
+
+#browsebrowsebutton:hover {
+    background-color: bisque;
+}
+
+#browseaccountbutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: dodgerblue;
+    font-size: 20px;
+}
+
+#browseaccountbutton:hover {
+    background-color: bisque;
+}
+
+
+.boxaccount {
+    display: grid;
+    grid-template-rows: 100px 400px 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    width: 1000px;
+    height: 600px;
+    background-color: antiquewhite;
+}
+
+#accountviewup {
+    background-color: lightsteelblue;
+    height: 100px;
+    width: 1000px;
+}
+
+#accountviewmiddle {
+    display: grid;
+    grid-template-columns: 800px 200px;
+    height: 400px;
+    width: 1000px;
+}
+
+#accountviewdown {
+    background-color: lightsteelblue;
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px;
+    width: 1000px;
+    height: 100px;
+}
+
+#accountviewlabel {
+    line-height: 100px;
+    text-align: center;
+    width: 1000px;
+    font-size: 50px;
+    height: 100px;
+}
+
+#accountviewresetpw {
+    display: grid;
+    width: 800px;
+    height: 400px;
+    grid-template-rows: 50px 100px 100px 100px 50px;
+}
+
+#accountviewresetpwlabel {
+    text-align: center;
+    display: grid;
+    width: 800px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#accountviewsignout {
+    display: grid;
+    width: 200px;
+    height: 400px;
+    grid-template-rows: 50px 100px;
+}
+
+#accountviewsignoutlabel {
+    text-align: center;
+    display: grid;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#accountviewsignoutbutton {
+    text-align: center;
+    line-height: 100px;
+    display: grid;
+    width: 200px;
+    height: 100px;
+    color: blue;
+    text-decoration: underline blue;
+}
+
+#accountviewoldpw {
+    display: grid;
+    grid-template-columns: 200px 400px;
+    width: 800px;
+    height: 100px;
+    place-items: center;
+}
+
+#accountviewoldpwlabel {
+    text-align: center;
+    line-height: 100px;
+    width: 200px;
+    height: 100px;
+}
+
+#accountviewoldpwfield {
+    width: 400px;
+    height: 50px;
+}
+
+#accountviewnewpw {
+    display: grid;
+    grid-template-columns: 200px 400px;
+    width: 800px;
+    height: 100px;
+    place-items: center;
+}
+
+#accountviewnewpwlabel {
+    text-align: center;
+    line-height: 100px;
+    width: 200px;
+    height: 100px;
+}
+
+#accountviewnewpwfield {
+    width: 400px;
+    height: 50px;
+}
+
+#accountviewreppw {
+    display: grid;
+    grid-template-columns: 200px 400px;
+    width: 800px;
+    height: 100px;
+    place-items: center;
+}
+
+#accountviewreppwlabel {
+    text-align: center;
+    line-height: 100px;
+    width: 200px;
+    height: 100px;
+}
+
+#accountviewreppwfield {
+    width: 400px;
+    height: 50px;
+}
+
+#accountviewsubmit {
+    display: grid;
+    grid-template-columns: 200px 400px;
+    width: 800px;
+    height: 50px;
+    place-items: center;
+}
+
+#accountviewsubmitbutton {
+    text-align: center;
+    width: 180px;
+    height: 40px;
+    background-color: gray;
+}
+
+#accountviewsubmitbutton:hover {
+    background-color: aliceblue;
+}
+
+#accountviewsubmiterror {
+    color: red;
+    font-size: large;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+}
+
+
+#accounthomebutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: darkcyan;
+    font-size: 20px;
+}
+
+#accounthomebutton:hover {
+    background-color: bisque;
+}
+
+#accountbrowsebutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: darkmagenta;
+    font-size: 20px;
+}
+
+#accountbrowsebutton:hover {
+    background-color: bisque;
+}
+
+#accountaccountbutton {
+    display: grid;
+    border: 2px black;
+    line-height: 100px;
+    color: white;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: dodgerblue;
+    font-size: 20px;
+}
+
+#accountaccountbutton:hover {
+    background-color: bisque;
+}
