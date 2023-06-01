@@ -1,39 +1,36 @@
-
 window.onload = function () {
-  let currentView = localStorage.getItem("currentView");
-  if (!currentView) {
-    currentView = "welcomeview";
+  let currentview = localStorage.getItem("currentview");
+  if (!currentview) {
+    currentview = "welcomeview";
   }
-  if (currentView === "profileview") {
-    const savedToken = localStorage.getItem("savetoken");
-    if (savedToken) {
+  if (currentview === "profileview") {
+    const savedtoken = localStorage.getItem("savetoken");
+    if (savedtoken) {
       displayProfile();
-      displayPersonalInformation(savedToken);
+      displayPersonalInformation(savedtoken);
     } else {
-      currentView = "welcomeview";
+      currentview = "welcomeview";
     }
   }
-  if (currentView === "browseview") {
-    const savedToken = localStorage.getItem("savetoken");
+  if (currentview === "browseview") {
+    const savedtoken = localStorage.getItem("savetoken");
     displayProfile();
-    displayPersonalInformation(savedToken);
+    displayPersonalInformation(savedtoken);
     document.querySelector(".boxbrowse").style.display = "block";
     document.querySelector(".boxhome").style.display = "none";
     document.querySelector(".boxaccount").style.display = "none";
-    localStorage.setItem("currentView", "browseview");
+    localStorage.setItem("currentview", "browseview");
   }
-
-  if (currentView === "accountview") {
-    const savedToken = localStorage.getItem("savetoken");
+  if (currentview === "accountview") {
+    const savedtoken = localStorage.getItem("savetoken");
     displayProfile();
-    displayPersonalInformation(savedToken);
+    displayPersonalInformation(savedtoken);
     document.querySelector(".boxbrowse").style.display = "none";
     document.querySelector(".boxhome").style.display = "none";
     document.querySelector(".boxaccount").style.display = "block";
-    localStorage.setItem("currentView", "accountview");
+    localStorage.setItem("currentview", "accountview");
   }
-
-  if (currentView === "welcomeview") {
+  if (currentview === "welcomeview") {
     displayWelcome();
   }
 };
@@ -42,21 +39,21 @@ function displayWelcome() {
   const body = document.getElementById("body");
   const welcomeview = document.getElementById("welcomeview");
   body.innerHTML = welcomeview.innerHTML;
-  localStorage.setItem("currentView", "welcomeview");
+  localStorage.setItem("currentview", "welcomeview");
 }
 
 function displayProfile() {
   const body = document.getElementById("body");
   const profileview = document.getElementById("profileview");
   body.innerHTML = profileview.innerHTML;
-  localStorage.setItem("currentView", "profileview");
+  localStorage.setItem("currentview", "profileview");
 }
 
 function signUp() {
   const password1 = document.getElementById("signuppasswordfield").value;
   const password2 = document.getElementById("signuprepeatpswfield").value;
   if (password1 == password2) {
-    const inputObject = {
+    const inputobject = {
       email: document.getElementById("signupemailfield").value,
       password: document.getElementById("signuppasswordfield").value,
       firstname: document.getElementById("signupfirstnamefield").value,
@@ -73,7 +70,7 @@ function signUp() {
       document.getElementById("signuphere").innerHTML = response.message;
       document.getElementById("differentpw").innerHTML = "";
     }
-    req.send(JSON.stringify(inputObject));
+    req.send(JSON.stringify(inputobject));
   }
   else {
     document.getElementById("differentpw").innerHTML = "No pw match";
@@ -83,7 +80,7 @@ function signUp() {
 function signIn() {
   const email = document.getElementById("loginemailfield").value;
   const password = document.getElementById("loginpasswordfield").value;
-  const inputObject = {
+  const inputobject = {
     email: email,
     password: password,
   };
@@ -101,16 +98,15 @@ function signIn() {
       document.getElementById("loginspace").innerHTML = response.error;
     }
   };
-  req.send(JSON.stringify(inputObject));
+  req.send(JSON.stringify(inputobject));
   return false;
-
 };
 
 function displayPersonalInformation() {
-  const savedToken = localStorage.getItem("savetoken");
+  const savedtoken = localStorage.getItem("savetoken");
   const req = new XMLHttpRequest();
   req.open("GET", "/get_user_data_by_token", true);
-  req.setRequestHeader("Authorization", savedToken);
+  req.setRequestHeader("Authorization", savedtoken);
   req.onload = function () {
     const response = JSON.parse(req.responseText);
     if (response.message === "Token is not threre or invalid") {
@@ -132,13 +128,13 @@ function callbrowsePersonalInformation() {
 }
 
 function browsePersonalInformation() {
-  const savedToken = localStorage.getItem("savetoken");
+  const savedtoken = localStorage.getItem("savetoken");
   const filteredemails = document.getElementById("browseviewreloadsearchfield").value;
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", `/get_user_data_by_email/${filteredemails}`);
-  xhr.setRequestHeader("Authorization", savedToken);
-  xhr.onreadystatechange = function () {
-    const response = JSON.parse(xhr.responseText);
+  const req = new XMLHttpRequest();
+  req.open("GET", `/get_user_data_by_email/${filteredemails}`);
+  req.setRequestHeader("Authorization", savedtoken);
+  req.onreadystatechange = function () {
+    const response = JSON.parse(req.responseText);
     if (response.success) {
       document.getElementById("browseviewdatafirstnamefield").innerHTML = response.data.firstname;
       document.getElementById("browseviewdatafamilynamefield").innerHTML = response.data.familyname;
@@ -158,7 +154,7 @@ function browsePersonalInformation() {
       document.getElementById("browseviewreloadsearchlabel").innerHTML = response.message;
     }
   };
-  xhr.send();
+  req.send();
 }
 
 function callpostOnWall() {
@@ -169,51 +165,42 @@ function postOnWall() {
   const ownwallpost = document.getElementById("homeviewownwallpost");
   const ownwallshow = document.getElementById("homeviewownwallshow");
   const wallcontent = ownwallpost.value;
-  const savedToken = localStorage.getItem("savetoken");
-  
-  // Get user's location using HTML5 geolocation
+  const savedtoken = localStorage.getItem("savetoken");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error);
   } else {
-    console.log("Geolocation is not supported by this browser.");
     postMessage();
   }
-
   function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    
-    // Use Geocode.xyz API to get the user's location details
-    const geocodeUrl = `https://geocode.xyz/${latitude},${longitude}?json=1`;
-    const geocodeReq = new XMLHttpRequest();
-    geocodeReq.open("GET", geocodeUrl, true);
-    geocodeReq.onload = function () {
-      const geocodeData = JSON.parse(geocodeReq.responseText);
-      const location = `${geocodeData.city}, ${geocodeData.country}`;
-      
+    const authenticationnumber = "221681880901109136888x94724"; 
+    const url = `https://geocode.xyz/${latitude},${longitude}?json=1&auth=${authenticationnumber}`;
+    const req1 = new XMLHttpRequest();
+    req1.open("GET", url, true);
+    req1.onload = function () {
+      const data = JSON.parse(req1.responseText);
+      const location = `${data.city}, ${data.country}`;
       postMessage(location);
     };
-    geocodeReq.send();
+    req1.send();
   }
-
   function error() {
-    console.log("Unable to retrieve your location.");
     postMessage();
   }
-
   function postMessage(location = "") {
-    const req = new XMLHttpRequest();
-    req.open("GET", "/get_user_data_by_token", true);
-    req.setRequestHeader("Authorization", savedToken);
-    req.onload = function () {
-      const response = JSON.parse(req.responseText);
+    const req2 = new XMLHttpRequest();
+    req2.open("GET", "/get_user_data_by_token", true);
+    req2.setRequestHeader("Authorization", savedtoken);
+    req2.onload = function () {
+      const response = JSON.parse(req2.responseText);
       const emailme = response.email;
       if (wallcontent.trim() !== "") {
-        const postReq = new XMLHttpRequest();
-        postReq.open("POST", "/post_message", true);
-        postReq.setRequestHeader("Content-Type", "application/json");
-        postReq.setRequestHeader("Authorization", savedToken);
-        postReq.onload = function () {
+        const req3 = new XMLHttpRequest();
+        req3.open("POST", "/post_message", true);
+        req3.setRequestHeader("Content-Type", "application/json");
+        req3.setRequestHeader("Authorization", savedtoken);
+        req3.onload = function () {
           ownwallshow.innerHTML = emailme + ": " + wallcontent + " (" + location + ") " + "<br>" + ownwallshow.innerHTML;
           document.getElementById("homeviewownwallpost").value = " ";
           const numofmessages = ownwallshow.getElementsByTagName("br").length;
@@ -221,68 +208,58 @@ function postOnWall() {
             ownwallshow.innerHTML = ownwallshow.innerHTML.substring(0, ownwallshow.innerHTML.lastIndexOf("<br>"));
           }
         };
-        postReq.send(JSON.stringify({ "message": wallcontent + " (" + location + ") ", "email": emailme }));
+        req3.send(JSON.stringify({ "message": wallcontent + " (" + location + ") ", "email": emailme }));
       }
     };
-    req.send();
+    req2.send();
   }
 }
-
 
 function callpostOnSelectedWall() {
   postOnSelectedWall();
 }
 
 function postOnSelectedWall() {
-  const savedToken = localStorage.getItem("savetoken");
+  const savedtoken = localStorage.getItem("savetoken");
   const ownwallpost = document.getElementById("browseviewownwallpost");
   const ownwallshow = document.getElementById("browseviewownwallshow");
   const emailhim = document.getElementById("browseviewreloadsearchfield").value;
   const wallcontent = ownwallpost.value;
-
-  // Get user's location using HTML5 geolocation
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error);
   } else {
-    console.log("Geolocation is not supported by this browser.");
     postMessage();
   }
-
   function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-
-    // Use Geocode.xyz API to get the user's location details
-    const geocodeUrl = `https://geocode.xyz/${latitude},${longitude}?json=1`;
-    const geocodeReq = new XMLHttpRequest();
-    geocodeReq.open("GET", geocodeUrl, true);
-    geocodeReq.onload = function () {
-      const geocodeData = JSON.parse(geocodeReq.responseText);
-      const location = `${geocodeData.city}, ${geocodeData.country}`;
-
+    const authenticationnumber = "221681880901109136888x94724";
+    const url = `https://geocode.xyz/${latitude},${longitude}?json=1&auth=${authenticationnumber}`;
+    const req1 = new XMLHttpRequest();
+    req1.open("GET", url, true);
+    req1.onload = function () {
+      const data = JSON.parse(req1.responseText);
+      const location = `${data.city}, ${data.country}`;
       postMessage(location);
     };
-    geocodeReq.send();
+    req1.send();
   }
-
   function error() {
-    console.log("Unable to retrieve your location.");
     postMessage();
   }
-
   function postMessage(location = "") {
-    const req = new XMLHttpRequest();
-    req.open("GET", "/get_user_data_by_token", true);
-    req.setRequestHeader("Authorization", savedToken);
-    req.onload = function () {
-      const response = JSON.parse(req.responseText);
+    const req2 = new XMLHttpRequest();
+    req2.open("GET", "/get_user_data_by_token", true);
+    req2.setRequestHeader("Authorization", savedtoken);
+    req2.onload = function () {
+      const response = JSON.parse(req2.responseText);
       const emailme = response.email;
       if (wallcontent.trim() !== "") {
-        const postReq = new XMLHttpRequest();
-        postReq.open("POST", "/post_message", true);
-        postReq.setRequestHeader("Content-Type", "application/json");
-        postReq.setRequestHeader("Authorization", savedToken);
-        postReq.onload = function () {
+        const req3 = new XMLHttpRequest();
+        req3.open("POST", "/post_message", true);
+        req3.setRequestHeader("Content-Type", "application/json");
+        req3.setRequestHeader("Authorization", savedtoken);
+        req3.onload = function () {
           ownwallshow.innerHTML = emailme + ": " + wallcontent + " (" + location + ") " + "<br>" + ownwallshow.innerHTML;
           document.getElementById("browseviewownwallpost").value = "";
           const numofmessages = ownwallshow.getElementsByTagName("br").length;
@@ -290,71 +267,65 @@ function postOnSelectedWall() {
             ownwallshow.innerHTML = ownwallshow.innerHTML.substring(0, ownwallshow.innerHTML.lastIndexOf("<br>"));
           }
         };
-        postReq.send(JSON.stringify({ "message": wallcontent + " (" + location + ") ", "email": emailhim }));
+        req3.send(JSON.stringify({ "message": wallcontent + " (" + location + ") ", "email": emailhim }));
       }
     };
-    req.send();
+    req2.send();
   }
 }
-
 
 function callreloadownwall() {
   reloadownwall();
 }
 
 function reloadownwall() {
-  const savedToken = localStorage.getItem("savetoken");
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "/get_user_messages_by_token", true);
-  xhttp.setRequestHeader("Authorization", savedToken);
-  xhttp.onreadystatechange = function () {
+  const savedtoken = localStorage.getItem("savetoken");
+  const req = new XMLHttpRequest();
+  req.open("GET", "/get_user_messages_by_token", true);
+  req.setRequestHeader("Authorization", savedtoken);
+  req.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       const messages = JSON.parse(this.responseText).messages;
       messages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      const recentMessages = messages.slice(0, 7);
+      const recentmessages = messages.slice(0, 7);
       let messagesstring = "";
-      for (let i = 0; i < recentMessages.length; i++) {
-        messagesstring += recentMessages[i].sender_email + ": " + recentMessages[i].message + "<br>";
+      for (let i = 0; i < recentmessages.length; i++) {
+        messagesstring += recentmessages[i].sender_email + ": " + recentmessages[i].message + "<br>";
       }
       document.getElementById("homeviewownwallshow").innerHTML = messagesstring;
     }
   };
-  xhttp.send();
+  req.send();
 };
-
 
 function callreloadselectedwall() {
   reloadselectedwall();
 }
 
 function reloadselectedwall() {
-  const searchLabel = document.getElementById("browseviewreloadsearchlabel").innerHTML;
-
-  if (searchLabel === "User data retrieved successfully") {
-    const savedToken = localStorage.getItem("savetoken");
+  const searchlabel = document.getElementById("browseviewreloadsearchlabel").innerHTML;
+  if (searchlabel === "User data retrieved successfully") {
+    const savedtoken = localStorage.getItem("savetoken");
     const emailhim = document.getElementById("browseviewreloadsearchfield").value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/get_user_messages_by_email/${emailhim}`, true);
-    xhr.setRequestHeader("Authorization", savedToken);
-    xhr.onreadystatechange = function () {
+    const req = new XMLHttpRequest();
+    req.open("GET", `/get_user_messages_by_email/${emailhim}`, true);
+    req.setRequestHeader("Authorization", savedtoken);
+    req.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         const response = JSON.parse(this.responseText);
         if (response.messages) {
           const messages = response.messages;
           messages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-          const recentMessages = messages.slice(0, 7);
+          const recentmessages = messages.slice(0, 7);
           let messagesstring = "";
-
-          for (let i = 0; i < recentMessages.length; i++) {
-            messagesstring += recentMessages[i].sender_email + ": " + recentMessages[i].message + "<br>";
+          for (let i = 0; i < recentmessages.length; i++) {
+            messagesstring += recentmessages[i].sender_email + ": " + recentmessages[i].message + "<br>";
           }
-
           document.getElementById("browseviewownwallshow").innerHTML = messagesstring;
         }
       }
     };
-
-    xhr.send();
+    req.send();
   }
 }
 
@@ -381,25 +352,24 @@ function checkPasswordsMatch() {
     return false;
   }
   if (password1 == password2) {
-    const savedToken = localStorage.getItem("savetoken");
+    const savedtoken = localStorage.getItem("savetoken");
     document.getElementById("accountviewoldpwfield").value = "";
     document.getElementById("accountviewreppwfield").value = "";
     document.getElementById("accountviewnewpwfield").value = "";
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", "/change_password");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", savedToken);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
+    const req = new XMLHttpRequest();
+    req.open("PUT", "/change_password");
+    req.setRequestHeader("Content-Type", "application/json");
+    req.setRequestHeader("Authorization", savedtoken);
+    req.onreadystatechange = function () {
+      if (req.readyState === XMLHttpRequest.DONE) {
         const response = JSON.parse(xhr.responseText);
         error.innerHTML = response.message;
-        if (xhr.status === 200) {
+        if (req.status === 200) {
           return true;
         }
       }
     };
-    xhr.send(JSON.stringify({
+    req.send(JSON.stringify({
       "oldpassword": oldpassword,
       "newpassword": password1
     }));
@@ -407,75 +377,59 @@ function checkPasswordsMatch() {
   return false;
 }
 
-
 function homeshowBrowseView() {
   document.querySelector(".boxhome").style.display = "none";
   document.querySelector(".boxbrowse").style.display = "block";
-  localStorage.setItem("currentView", "browseview");
+  localStorage.setItem("currentview", "browseview");
 }
-
 
 function homeshowAccountView() {
   document.querySelector(".boxhome").style.display = "none";
   document.querySelector(".boxaccount").style.display = "block";
-  localStorage.setItem("currentView", "accountview");
+  localStorage.setItem("currentview", "accountview");
 }
 
 function browseshowHomeView() {
   document.querySelector(".boxbrowse").style.display = "none";
   document.querySelector(".boxhome").style.display = "block";
-  localStorage.setItem("currentView", "profileview");
+  localStorage.setItem("currentview", "profileview");
 }
 
 function browseshowAccountView() {
   document.querySelector(".boxbrowse").style.display = "none";
   document.querySelector(".boxaccount").style.display = "block";
-  localStorage.setItem("currentView", "accountview");
+  localStorage.setItem("currentview", "accountview");
 }
 
 function accountshowHomeView() {
   document.querySelector(".boxaccount").style.display = "none";
   document.querySelector(".boxhome").style.display = "block";
-  localStorage.setItem("currentView", "profileview");
+  localStorage.setItem("currentview", "profileview");
 }
 
 function accountshowBrowseView() {
   document.querySelector(".boxaccount").style.display = "none";
   document.querySelector(".boxbrowse").style.display = "block";
-  localStorage.setItem("currentView", "browseview");
+  localStorage.setItem("currentview", "browseview");
 }
 
 function accountSignout() {
-  const savedToken = localStorage.getItem("savetoken");
-
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "/sign_out", true);
-  xhttp.setRequestHeader("Authorization", savedToken);
-  xhttp.onreadystatechange = function () {
+  const savedtoken = localStorage.getItem("savetoken");
+  const req = new XMLHttpRequest();
+  req.open("GET", "/sign_out", true);
+  req.setRequestHeader("Authorization", savedtoken);
+  req.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       displayWelcome();
       document.getElementById("loginspace").innerHTML = JSON.parse(this.responseText).message;
     }
   };
-  xhttp.send();
+  req.send();
 }
 
 function openWebSocket() {
-  const savedToken = localStorage.getItem("savetoken");
-
-  const ws = new WebSocket(`ws://${window.location.host}/websocket?access_token=${savedToken}`);
-
-  ws.onopen = function () {
-    console.log("WebSocket connection opened.");
-  };
-
-  ws.onmessage = function (event) {
-    console.log("Received message from server: " + event.data);
-  };
-
-  ws.onclose = function (event) {
-    console.log(`WebSocket connection closed with code ${event.code}.`);
-  };
+  const savedtoken = localStorage.getItem("savetoken");
+  const ws = new WebSocket(`ws://${window.location.host}/websocket?access_token=${savedtoken}`);
 }
 
 function allowDrop(ev) {
@@ -490,4 +444,17 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
+}
+
+function recoverPassword() {
+  const email = document.getElementById("loginemailfield").value;
+  const password = document.getElementById("loginpasswordfield").value;
+  const req = new XMLHttpRequest();
+  req.open("POST", "/recover_password", true);
+  req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  req.onload = function () {
+    const response = JSON.parse(req.responseText);
+    document.getElementById("loginspace").innerHTML = response.message;
+  };
+  req.send(JSON.stringify({ email, password }));
 }

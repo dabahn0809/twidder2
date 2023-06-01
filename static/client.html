@@ -1,13 +1,14 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <link href="/static/client.css" type="text/css" rel="stylesheet">
     <script src="/static/client.js" type="text/javascript"></script>
     <script src="/static/serverstub.js" type="text/javascript"></script>
+    <meta name="scaling" content="width=device-width, initial-scale=1.0">
     <script type="text/view" id="welcomeview">
             <div class="box">
                 <div id="logoandslogan"></div>
-            <form onsubmit="signIn(); return false">
                 <div id="login">
                     <div id="loginspace"></div>
                     <div id="loginemail">
@@ -18,9 +19,9 @@
                         <div id="loginpasswordlabel">Password</div>
                         <div><input id="loginpasswordfield" type="password" minlength="6" required></div>
                     </div>
-                    <div><input id="loginsubmit" type="submit"></div>
+                    <div><button id="loginrecover" onclick="recoverPassword()">Recover</div>
+                    <div><button id="loginsubmit" onclick="signIn(); return false">Submit</div>
                 </div>
-            </form>
                 <div id="space"></div>
             <form onsubmit= "signUp(); return false">
                 <div id="signup">
@@ -77,23 +78,23 @@
                         </div>
                         <div id="homeviewdatafamilyname">
                             <div id="homeviewdatafamilynamelabel">Family Name</div>
-                            <div id="homeviewdatafamilynamefield">Test</div>
+                            <div id="homeviewdatafamilynamefield"></div>
                         </div>
                         <div id="homeviewdatagender">
                             <div id="homeviewdatagenderlabel">Gender</div>
-                            <div id="homeviewdatagenderfield">Test</div>
+                            <div id="homeviewdatagenderfield"></div>
                         </div>
                         <div id="homeviewdatacity">
                             <div id="homeviewdatacitylabel">City</div>
-                            <div id="homeviewdatacityfield">Test</div>
+                            <div id="homeviewdatacityfield"></div>
                         </div>
                         <div id="homeviewdatacountry">
                             <div id="homeviewdatacountrylabel">Country</div>
-                            <div id="homeviewdatacountryfield">Test</div>
+                            <div id="homeviewdatacountryfield"></div>
                         </div>
                         <div id="homeviewdataemail">
                             <div id="homeviewdataemaillabel">Email</div>
-                            <div id="homeviewdataemailfield">Test</div>
+                            <div id="homeviewdataemailfield"></div>
                         </div>
                     </div>
                     <div id="homeviewownwall">
