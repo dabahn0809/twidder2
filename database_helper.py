@@ -1,5 +1,9 @@
+import smtplib
 import sqlite3
 from flask import g
+import string
+import random
+from email.mime.text import MIMEText
 
 DATABASE_URI = "database.db"
 
@@ -119,7 +123,7 @@ def check_user(email, password):
 
     if user and user[1] == password:
         email, password = user
-        return {"success": True,"email": email, "password": password}
+        return {"success": True, "email": email, "password": password}
 
     return {"success": False}
 
@@ -150,6 +154,7 @@ def save_message(sender_email, receiver_email, message):
 
     return 200, "Message was sent correctly"
 
+
 def get_messages_by_email(email):
     conn = get_db()
     c = conn.cursor()
@@ -164,6 +169,7 @@ def get_messages_by_email(email):
         })
     return messages
 
+
 def get_user_data_by_email(email):
     conn = get_db()
     c = conn.cursor()
@@ -177,3 +183,37 @@ def get_user_data_by_email(email):
 
     return None
 
+
+def send_password_email(email, password):
+    smtp_server = "mail.gmx.net"
+    smtp_port = 587 
+    smtp_username = "danbadea66@gmx.de"
+    smtp_password = "Gicahagi0809+="
+
+    subject = "Password Recovery"
+    message = f"Your new password is: {password}"
+    sender = "danbadea66@gmx.de"
+    receiver = email
+
+    email_message = MIMEText(message)
+    email_message["Subject"] = subject
+    email_message["From"] = sender
+    email_message["To"] = receiver
+
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_username, smtp_password)
+
+        server.sendmail(sender, receiver, email_message.as_string())
+
+        server.quit()
+
+        print("Password recovery email sent successfully.")
+    except Exception as e:
+        print(f"Failed to send the password recovery email: {e}")
+
+
+def generate_password(length=8):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))

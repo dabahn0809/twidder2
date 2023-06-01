@@ -1,63 +1,47 @@
-
-from database_helper import create_tables
+import gevent
 import random
 import database_helper
 from flask import Flask, jsonify, request
 from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
-from geventwebsocket.handler import WebSocketHandler, WebSocketError
+from geventwebsocket.handler import WebSocketHandler
 
 app = Flask(__name__)
 
-
 with app.app_context():
-    create_tables()
-
+    database_helper.create_tables()
 
 signedinusers = {}
-active_websockets = {}
-
-
+websocketsss = {}
 
 @app.route("/", methods=["get"])
 def root():
     return app.send_static_file("client.html"), 200
 
-
 @app.route("/sign_in", methods=["post"])
 def sign_in():
     data = request.get_json()
-
     if "email" not in data or "password" not in data:
         return jsonify({"error": "You have to have an email and a password"}), 400
-
     email = data["email"]
     password = data["password"]
-
-    user = database_helper.check_user(email=email, password=password)
+    user = database_helper.check_user(email, password)
     if not user["success"]:
-        return jsonify({"error": "User not found or invalid username or invalid password"}), 401
-
-    min_password_length = 6
-    if len(password) < min_password_length:
+        return jsonify({"error": "Invalid username or invalid password"}), 401
+    passwordlength = 6
+    if len(password) < passwordlength:
         return jsonify({"success": False, "error": "Password minimum length should be 6"}), 422
-
     if email in signedinusers:
         return jsonify({"success": False, "error": "User is already logged in"}), 409
-
     access_token = "".join(random.choices(
-        '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', k=32))
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", k=32))
     database_helper.store_token(email, access_token)
-
     signedinusers[email] = access_token
-
-    if email not in active_websockets:
+    if email not in websocketsss:
         ws = request.environ.get("wsgi.websocket")
         if ws:
-            active_websockets[email] = ws
-
+            websocketsss[email] = ws
     return jsonify({"success": True, "message": "User is now signed in", "access_token": access_token}), 200
-
 
 @app.route("/sign_up", methods=["post"])
 def sign_up():
@@ -71,134 +55,103 @@ def sign_up():
     gender = data["gender"]
     city = data["city"]
     country = data["country"]
-
     if not all([email, password, firstname, familyname, gender, city, country]):
-        return jsonify({"error": "Some of the data is missing"}), 400
-
-    min_password_length = 6
-    if len(password) < min_password_length:
-        return jsonify({"error": "The password has to have at least 6 characters"}), 422
-
+        return jsonify({"message": "Some of the data is missing"}), 400
+    passwordlength = 6
+    if len(password) < passwordlength:
+        return jsonify({"message": "The password has to have at least 6 characters"}), 422
     if "@" not in email:
-        return jsonify({"error": "Pls check the email format"}), 422
-
+        return jsonify({"message": "Pls check the email format"}), 422
     status_code, message = database_helper.save_user(
         email, password, firstname, familyname, gender, city, country)
-
     return jsonify({"message": message}), status_code
-
 
 @app.route("/sign_out", methods=["get"])
 def sign_out():
     token = request.headers.get("Authorization")
     if not token:
-        return jsonify({"error": "Token is missing"}), 400
-
-    token_data = database_helper.get_token_data(token)
-
-    if not token_data:
-        return jsonify({"error": "Token not there or invalid"}), 401
-
-    result = database_helper.invalidate_token(token_data["access_token"])
-
+        return jsonify({"message": "Token is missing"}), 400
+    tokendata = database_helper.get_token_data(token)
+    if not tokendata:
+        return jsonify({"message": "Token not there or invalid"}), 401
+    result = database_helper.invalidate_token(tokendata["access_token"])
     if not result:
-        return jsonify({"error": "Token not there or invalid"}), 401
-
-    email = token_data["email"]
+        return jsonify({"message": "Token not there or invalid"}), 401
+    email = tokendata["email"]
     if email in signedinusers:
         del signedinusers[email]
-
-    if email in active_websockets:
+    if email in websocketsss:
         try:
-            active_websockets[email].close()
+            websocketsss[email].close()
         except WebSocketError:
             pass
-        del active_websockets[email]
-
+        del websocketsss[email]
     return jsonify({"message": "User is now signed out"}), 200
 
 
-@app.route("/change_password", methods=["PUT"])
+# Change this one for real!!!!!!!!
+@app.route("/change_password", methods=["put"])
 def change_password():
     data = request.get_json()
     token = request.headers.get("Authorization")
-
     if "oldpassword" not in data or "newpassword" not in data:
-        return jsonify({"error": "Either old password or new password is missing"}), 400
-
+        return jsonify({"message": "Either old password or new password is missing"}), 400
     oldpassword = data["oldpassword"]
     newpassword = data["newpassword"]
-
-    token_data = database_helper.get_token_data(token)
-    if token_data is None:
+    tokendata = database_helper.get_token_data(token)
+    if tokendata is None:
         return jsonify({"message": "Token is not there or invalid"}), 401
-
-    email_data = database_helper.get_email_data(token_data["access_token"])
-    if email_data is None:
+    emaildata = database_helper.get_email_data(tokendata["access_token"])
+    if emaildata is None:
         return jsonify({"message": "User can not be located"}), 401
-
-    user_data = database_helper.check_user(email_data["email"], oldpassword)
-    if not user_data.get("success"):
+    userdata = database_helper.check_user(emaildata["email"], oldpassword)
+    if not userdata.get("success"):
         return jsonify({"message": "Old password is incorrect"}), 401
-
     if len(newpassword) < 6:
         return jsonify({"message": "New password must be at least 6 characters long"}), 422
-
     status, message = database_helper.update_password(
-        email_data["email"], newpassword)
+        emaildata["email"], newpassword)
     if status != 200:
         return jsonify({"message": message}), status
-
     return jsonify({"message": "You now have a new password :)"})
-
 
 @app.route("/get_user_data_by_token", methods=["get"])
 def get_user_data_by_token():
     token = request.headers.get("Authorization")
-
-    token_data = database_helper.get_token_data(token)
-    if token_data is None:
+    tokendata = database_helper.get_token_data(token)
+    if tokendata is None:
         return jsonify({"message": "Token is not threre or invalid"}), 401
-
-    email_data = database_helper.get_email_data(token_data["access_token"])
-    if email_data is None:
+    emaildata = database_helper.get_email_data(tokendata["access_token"])
+    if emaildata is None:
         return jsonify({"message": "User can not be located"}), 404
-
-    response_data = {
-        "email": email_data["email"],
-        "firstname": email_data["firstname"],
-        "familyname": email_data["familyname"],
-        "gender": email_data["gender"],
-        "city": email_data["city"],
-        "country": email_data["country"]
+    responsedata = {
+        "email": emaildata["email"],
+        "firstname": emaildata["firstname"],
+        "familyname": emaildata["familyname"],
+        "gender": emaildata["gender"],
+        "city": emaildata["city"],
+        "country": emaildata["country"]
     }
+    return jsonify(responsedata), 200
 
-    return jsonify(response_data), 200
-
-
-@app.route("/get_user_data_by_email/<email>", methods=["GET"])
+@app.route("/get_user_data_by_email/<email>", methods=["get"])
 def get_user_data_by_email(email):
     token = request.headers.get("Authorization")
-
-    token_data = database_helper.get_token_data(token)
-    if token_data is None:
+    tokendata = database_helper.get_token_data(token)
+    if tokendata is None:
         return jsonify({"message": "Token is invalid or not there"}), 401
-
-    email_data = database_helper.get_email_email_data(email)
-    if email_data is None:
+    emaildata = database_helper.get_email_email_data(email)
+    if emaildata is None:
         return jsonify({"message": "User cannot be located"}), 404
-
-    response_data = {
-        "email": email_data["email"],
-        "firstname": email_data["firstname"],
-        "familyname": email_data["familyname"],
-        "gender": email_data["gender"],
-        "city": email_data["city"],
-        "country": email_data["country"]
+    responsedata = {
+        "email": emaildata["email"],
+        "firstname": emaildata["firstname"],
+        "familyname": emaildata["familyname"],
+        "gender": emaildata["gender"],
+        "city": emaildata["city"],
+        "country": emaildata["country"]
     }
-
-    return jsonify({"success": True, "data": response_data, "message": "User data retrieved successfully"}), 200
-
+    return jsonify({"success": True, "data": responsedata, "message": "User data retrieved successfully"}), 200
 
 @app.route("/post_message", methods=["post"])
 def post_message():
@@ -208,92 +161,79 @@ def post_message():
         return jsonify({"message": "Message or email is missing"}), 400
     message = data["message"]
     email = data["email"]
-
-    token_data = database_helper.get_token_data(token)
-    if token_data is None:
+    tokendata = database_helper.get_token_data(token)
+    if tokendata is None:
         return jsonify({"message": "Token not there or invalid"}), 401
-
-    email_data = database_helper.get_email_data(token_data["access_token"])
-    if email_data is None:
+    emaildata = database_helper.get_email_data(tokendata["access_token"])
+    if emaildata is None:
         return jsonify({"message": "User can not be found"}), 404
-
-    recipient_data = database_helper.get_email_email_data(email)
-    if recipient_data is None:
+    recipientdata = database_helper.get_email_email_data(email)
+    if recipientdata is None:
         return jsonify({"message": "Message recipient can not be found"}), 404
-
     database_helper.save_message(
-        email_data["email"], recipient_data["email"], message)
+        emaildata["email"], recipientdata["email"], message)
     return jsonify({"message": "Message is posted"}), 200
 
-
-@app.route("/get_user_messages_by_token", methods=["GET"])
+@app.route("/get_user_messages_by_token", methods=["get"])
 def get_user_messages_by_token():
     token = request.headers.get("Authorization")
-
-    token_data = database_helper.get_token_data(token)
-    if token_data is None:
+    tokendata = database_helper.get_token_data(token)
+    if tokendata is None:
         return jsonify({"message": "Token not found or invalid"}), 401
-
-    email = token_data["email"]
+    email = tokendata["email"]
     messages = database_helper.get_messages_by_email(email)
     return jsonify({"messages": messages}), 200
-
 
 @app.route("/get_user_messages_by_email/<email>", methods=["get"])
 def get_user_messages_by_email(email):
     token = request.headers.get("Authorization")
-
-    token_data = database_helper.get_token_data(token)
-    if token_data is None:
+    tokendata = database_helper.get_token_data(token)
+    if tokendata is None:
         return jsonify({"message": "Token not there or invalid"}), 401
-
-    user_data = database_helper.get_user_data_by_email(email)
-    if user_data is None:
+    userdata = database_helper.get_user_data_by_email(email)
+    if userdata is None:
         return jsonify({"message": "User can not be located"}), 404
-
     messages = database_helper.get_messages_by_email(email)
-
     return jsonify({"messages": messages}), 200
 
+@app.route("/recover_password", methods=["post"])
+def recover_password():
+    data = request.get_json()
+    email = data["email"]
+    userdata = database_helper.get_email_email_data(email)
+    if userdata:
+        newpassword = database_helper.generate_password()
+        status, message = database_helper.update_password(email, newpassword)
+        if status == 200:
+            database_helper.send_password_email(email, newpassword)
+            return jsonify({"message": "Password recovery email sent."}), 200
+        else:
+            return jsonify({"message": message}), status
+    else:
+        return jsonify({"message": "Email address not found."}), 404
+
+
+#also care here 
 @app.route("/websocket")
 def websocket():
     ws = request.environ.get("wsgi.websocket")
     if not ws:
         return jsonify({"error": "WebSocket connection failed"}), 400
-
-    # Get the user's access token from the query string
     access_token = request.args.get("access_token")
     if not access_token:
-        return jsonify({"error": "Access token is missing"}), 400
-
-    # Get the user's email address associated with the access token
-    token_data = database_helper.get_token_data(access_token)
-    if not token_data:
+        return jsonify({"error": "Token  is missing"}), 400
+    tokendata = database_helper.get_token_data(access_token)
+    if not tokendata:
         return jsonify({"error": "Invalid access token"}), 401
-
-    email = token_data["email"]
-
-    # Check if the user is signed in and the websocket is not already active
-    if email not in signedinusers or email in active_websockets:
+    email = tokendata["email"]
+    if email not in signedinusers or email in websocketsss:
         return jsonify({"error": "User is not signed in or websocket is already active"}), 403
-
-    # Add the websocket to the active websockets dictionary
-    active_websockets[email] = ws
-
-    # WebSocket message loop
-    while not ws.closed:
-        try:
-            # Send a message to the client every 10 seconds
-            ws.send("Hello from server!")
-            gevent.sleep(10)
-        except WebSocketError:
-            break
-
-    # Remove the websocket from the active websockets dictionary when it's closed
-    if email in active_websockets:
-        del active_websockets[email]
-
+    websocketsss[email] = ws
+    if email in websocketsss:
+        del websocketsss[email]
     return "", 200
 
-
-
+if __name__ == "__main__":
+    http_server = WSGIServer(("0.0.0.0", 2001), app,
+                             handler_class=WebSocketHandler)
+    http_server.serve_forever()
